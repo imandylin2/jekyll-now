@@ -4,12 +4,12 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+Data Product Manager at Initium Media
 
 ### More Information
 
-A place to include any other types of information that you'd like to include about yourself.
+I share some data wrangling, visualization and data journalism thoughts here!
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[imandylin2@gmail.com](mailto:imandylin2@gmail.com)
