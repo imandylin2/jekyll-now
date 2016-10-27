@@ -54,7 +54,7 @@
             return d.交易年月;
         }).left;
 
-        d3.csv("/csv/house_median_price_full.csv", function(d) {
+        d3.csv("{{ site.url }}/csv/house_median_price_full.csv", function(d) {
             return {
                 '縣市': d.county,
                 '單價每坪': +d.median_price,
