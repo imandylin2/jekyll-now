@@ -135,7 +135,7 @@
 
                 guideCircle
                     .attr("cx", function(d) {
-                        return x.domain(d.rangeX)(date) > x.domain(d.rangeX)(d.rangeX[1]) ? x.domain(d.rangeX)(d.rangeX[1]) : x.domain(d.rangeX)(date);
+                        return x.domain(d.rangeX)(date);
                     })
                     .attr("cy", function(d) {
                         index = bisect(d.values, date, 0, d.values.length - 1);
@@ -173,10 +173,12 @@
             }
 
             var x = d3.scaleTime()
-                .rangeRound([0, width]);
+                .rangeRound([0, width])
+                .clamp(true).nice();
 
             var y = d3.scaleLinear()
-                .rangeRound([height, 0]);
+                .rangeRound([height, 0])
+                .clamp(true).nice();
 
             var line = d3.line()
                 .x(function(d) {
