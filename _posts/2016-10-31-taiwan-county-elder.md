@@ -5,12 +5,11 @@ author: Data Man
 date: 2016-10-30 17:00:00
 ---
 
-![get the PDF](/images/taiwan-housing-front-image.png)
-最近幾個月曾經在電視上看到「房價走跌」、「至少還要跌X成」的新聞嗎？到底台灣房價是不是真的在跌，每個縣市的情況有沒有差別？我們用互動圖表帶你看台灣縣市房價近三年半來走勢，推敲房市投資客的動向。
+![get the PDF](/images/taiwan-elder-front-image.png)
+用政府人口資料練習年份拉軸跟地圖填色。
 
 
 <!-- more -->
 
-互動圖表使用方式：移動滑鼠指標的位置，圖表上的文字會顯示該位置的年月及相應房價中位數，點擊滑鼠會固定選擇，再點擊一次滑鼠即可回到移動模式。
 
 {% include 2016-10-31-taiwan-county-elder.html %}
