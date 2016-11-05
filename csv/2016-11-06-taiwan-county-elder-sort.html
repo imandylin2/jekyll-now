@@ -101,14 +101,14 @@
                 .range(['#eff3ff', '#084594']);
 
             d3.queue()
-                .defer(d3.csv, "{{ site.url }}/csv/house_median_price_full.csv", function(d) {
+                .defer(d3.csv, "house_median_price_full.csv", function(d) {
                     return {
                         '縣市': d.county,
                         '單價每坪': +d.median_price,
                         '交易年月': parseTime(d.交易年月)
                     };
                 })
-                .defer(d3.csv, "{{ site.url }}/csv/house_median_price_year.csv")
+                .defer(d3.csv, "house_median_price_year.csv")
                 .await(ready);
 
 
