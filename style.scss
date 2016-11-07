@@ -23,6 +23,7 @@ body {
 }
 
 .container {
+  float: left;
   margin: 0 auto;
   max-width: 1080px;
   padding: 0 10px;
@@ -107,6 +108,15 @@ strong, b {
 
 img {
   max-width: 100%;
+}
+
+img.work-img {
+  max-width: none;
+}
+
+div.work-div {
+  position: relative;
+
 }
 
 // Fixes images in popup boxes from Google Translate
@@ -239,6 +249,16 @@ nav {
   }
 }
 
+a h2
+
+a:hover h2 {
+  color: $blue;
+}
+
+.work-div {
+  float: left;
+  margin: 20px 30px 20px 30px;
+}
 //
 // .main
 //
