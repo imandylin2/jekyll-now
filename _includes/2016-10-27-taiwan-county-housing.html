@@ -1,260 +1,214 @@
+<div id="vis">
+</div>
+<script>
+    var parseTime = d3.timeParse("%Y-%m-%d");
+    var formatTime = d3.timeFormat("%Y-%m");
+    var bisect = d3.bisector(function(d) {
+        return d.交易年月;
+    }).left;
 
-<html>
+    d3.csv("/csv/house_median_price_full.csv", function(d) {
+        return {
+            '縣市': d.county,
+            '單價每坪': +d.median_price,
+            '交易年月': parseTime(d.交易年月)
+        };
+    }, function(error, data) {
+        if (error) throw error;
 
-<head>
-    <meta charset="UTF-8">
-    <title>Untitled Document</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <style>
-        * {
-            background-color: #f2f5f6;
-        }
+        var county = d3.nest().key(function(d) {
+                return d.縣市;
+            })
+            .entries(data);
 
-        .chart {
-            float: left;
-            padding-right: 5px;
-            padding-bottom: 5px;
-            padding-top: 0;
-            padding-left: 0;
-        }
+        county.forEach(function(d) {
+            d.rangeX = d3.extent(d.values.map(function(d) {
+                return d.交易年月;
+            }));
+            d.rangeY = [d3.min(d.values.map(function(d) {
+                return d.單價每坪;
+            })) - 10000, d3.max(d.values.map(function(d) {
+                return d.單價每坪;
+            }))];
+        });
 
-        #vis {
-            max-width: 1080px;
-            overflow: auto;
-        }
-
-        .background {
-            fill: none;
-        }
-
-        svg {
-            font-size: 15px;
-        }
-
-        .line {
-            fill: none;
-            stroke: #03a9f4;
-            stroke-width: 1.5px;
-        }
-
-        circle {
-            fill: none;
-            stroke: black;
-            stroke-width: 1px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="vis"></div>
-    <script>
-        var parseTime = d3.timeParse("%Y-%m-%d");
-        var formatTime = d3.timeFormat("%Y-%m");
-        var bisect = d3.bisector(function(d) {
-            return d.交易年月;
-        }).left;
-
-        d3.csv("{{ site.url }}/csv/house_median_price_full.csv", function(d) {
-            return {
-                '縣市': d.county,
-                '單價每坪': +d.median_price,
-                '交易年月': parseTime(d.交易年月)
+        var width = 150,
+            height = 120,
+            margin = {
+                top: 40,
+                right: 10,
+                bottom: 20,
+                left: 35
             };
-        }, function(error, data) {
-            if (error) throw error;
 
-            var county = d3.nest().key(function(d) {
-                    return d.縣市;
+        var div = d3.select("#vis")
+            .selectAll(".chart")
+            .data(county)
+            .enter().append("div")
+            .attr("class", "chart");
+
+        var svg = div.append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom);
+
+        var g = svg.append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+        var rectangle = g.append("rect")
+            .attr("class", "background")
+            .attr("pointer-events", "all")
+            .attr("width", width + margin.right)
+            .attr("height", height)
+            .on("mouseover", mouseover)
+            .on("mousemove", mousemove)
+            .on("mouseout", mouseout)
+            .on("click", mouseclick);
+
+        function mouseover() {
+            guideCircle.attr("opacity", 1);
+            guidePrice.attr("opacity", 1);
+            guideMonth.attr("opacity", 1);
+            guideLine.attr("opacity", 1);
+            mousemove.call(this);
+        }
+
+        function mouseout() {
+            guideCircle.attr("opacity", 0);
+            guidePrice.attr("opacity", 0);
+            guideMonth.attr("opacity", 0);
+            guideLine.attr("opacity", 0);
+            mousemove.call(this);
+        }
+
+        function mousemove(d) {
+
+            var date = x.domain(d.rangeX).invert(d3.mouse(this)[0]);
+
+            var index = 0;
+
+            guideCircle
+                .attr("cx", function(d) {
+                    return x.domain(d.rangeX)(date);
                 })
-                .entries(data);
-
-            county.forEach(function(d) {
-                d.rangeX = d3.extent(d.values.map(function(d) {
-                    return d.交易年月;
-                }));
-                d.rangeY = [d3.min(d.values.map(function(d) {
-                    return d.單價每坪;
-                })) - 10000, d3.max(d.values.map(function(d) {
-                    return d.單價每坪;
-                }))];
-            });
-
-            var width = 150,
-                height = 120,
-                margin = {
-                    top: 40,
-                    right: 10,
-                    bottom: 20,
-                    left: 35
-                };
-
-            var div = d3.select("#vis")
-                .selectAll(".chart")
-                .data(county)
-                .enter().append("div")
-                .attr("class", "chart");
-
-            var svg = div.append("svg")
-                .attr("width", width + margin.left + margin.right)
-                .attr("height", height + margin.top + margin.bottom);
-
-            var g = svg.append("g")
-                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            var rectangle = g.append("rect")
-                .attr("class", "background")
-                .attr("pointer-events", "all")
-                .attr("width", width + margin.right)
-                .attr("height", height)
-                .on("mouseover", mouseover)
-                .on("mousemove", mousemove)
-                .on("mouseout", mouseout)
-                .on("click", mouseclick);
-
-            function mouseover() {
-                guideCircle.attr("opacity", 1);
-                guidePrice.attr("opacity", 1);
-                guideMonth.attr("opacity", 1);
-                guideLine.attr("opacity", 1);
-                mousemove.call(this);
-            }
-
-            function mouseout() {
-                guideCircle.attr("opacity", 0);
-                guidePrice.attr("opacity", 0);
-                guideMonth.attr("opacity", 0);
-                guideLine.attr("opacity", 0);
-                mousemove.call(this);
-            }
-
-            function mousemove(d) {
-
-                var date = x.domain(d.rangeX).invert(d3.mouse(this)[0]);
-
-                var index = 0;
-
-                guideCircle
-                    .attr("cx", function(d) {
-                        return x.domain(d.rangeX)(date);
-                    })
-                    .attr("cy", function(d) {
-                        index = bisect(d.values, date, 0, d.values.length - 1);
-                        return y.domain(d.rangeY)(d.values[index].單價每坪);
-                    });
-
-                guideLine
-                    .attr("y", function(d) {
-                        index = bisect(d.values, date, 0, d.values.length - 1);
-                        return y.domain(d.rangeY)(d.values[index].單價每坪);
-                    });
-
-                guidePrice
-                    .text(function(d) {
-                        index = bisect(d.values, date, 0, d.values.length - 1);
-                        return "每坪" + Math.round(d.values[index].單價每坪 / 1000) / 10 + "萬元";
-                    });
-
-                guideMonth
-                    .text(function(d) {
-                        index = bisect(d.values, date, 0, d.values.length - 1);
-                        return formatTime(d.values[index].交易年月);
-                    });
-
-            }
-
-            function mouseclick(d) {
-              if (d3.select(".background").node().__on.map(function(d) {return d.type;}).filter(function(d) { return d == "mousemove";}) == "mousemove"){
-                rectangle.on("mousemove", null);
-                rectangle.on("mouseout", null);
-              } else {
-                rectangle.on("mousemove", mousemove);
-                rectangle.on("mouseout", mouseout);
-              }
-            }
-
-            var x = d3.scaleTime()
-                .rangeRound([0, width])
-                .clamp(true).nice();
-
-            var y = d3.scaleLinear()
-                .rangeRound([height, 0])
-                .clamp(true).nice();
-
-            var line = d3.line()
-                .x(function(d) {
-                    return x(d.交易年月);
-                })
-                .y(function(d) {
-                    return y(d.單價每坪);
+                .attr("cy", function(d) {
+                    index = bisect(d.values, date, 0, d.values.length - 1);
+                    return y.domain(d.rangeY)(d.values[index].單價每坪);
                 });
 
-            g.each(function(data) {
-                x.domain(data.rangeX);
-                y.domain(data.rangeY);
+            guideLine
+                .attr("y", function(d) {
+                    index = bisect(d.values, date, 0, d.values.length - 1);
+                    return y.domain(d.rangeY)(d.values[index].單價每坪);
+                });
 
-                d3.select(this)
-                    .append("g")
-                    .append("path")
-                    .attr("class", "line")
-                    .attr("d", function(d) {
-                        return line(d.values);
-                    });
+            guidePrice
+                .text(function(d) {
+                    index = bisect(d.values, date, 0, d.values.length - 1);
+                    return "每坪" + Math.round(d.values[index].單價每坪 / 1000) / 10 + "萬元";
+                });
 
-                d3.select(this)
-                    .append("g")
-                    .attr("class", "axis axis--x")
-                    .attr("transform", "translate(0," + height + ")")
-                    .call(d3.axisBottom(x.domain(data.rangeX)).ticks(4));
+            guideMonth
+                .text(function(d) {
+                    index = bisect(d.values, date, 0, d.values.length - 1);
+                    return formatTime(d.values[index].交易年月);
+                });
 
-                d3.select(this)
-                    .append("g")
-                    .attr("class", "axis axis--y")
-                    .call(d3.axisLeft(y.domain(data.rangeY)).ticks(4, "s"));
+        }
 
-                d3.select(this)
-                    .append("text")
-                    .attr("x", width / 2)
-                    .attr("y", 0)
-                    .attr("dy", -10)
-                    .style("text-anchor", "middle")
-                    .text(function(d) {
-                        return data.key
-                    });
+        function mouseclick(d) {
+            if (d3.select(".background").node().__on.map(function(d) {
+                    return d.type;
+                }).filter(function(d) {
+                    return d == "mousemove";
+                }) == "mousemove") {
+                rectangle.on("mousemove", null);
+                rectangle.on("mouseout", null);
+            } else {
+                rectangle.on("mousemove", mousemove);
+                rectangle.on("mouseout", mouseout);
+            }
+        }
 
+        var x = d3.scaleTime()
+            .rangeRound([0, width])
+            .clamp(true).nice();
 
+        var y = d3.scaleLinear()
+            .rangeRound([height, 0])
+            .clamp(true).nice();
+
+        var line = d3.line()
+            .x(function(d) {
+                return x(d.交易年月);
+            })
+            .y(function(d) {
+                return y(d.單價每坪);
             });
 
-            var guideCircle = g.append("circle")
-                .attr("r", 4)
-                .attr("opacity", 0)
-                .style("pointer-events", "none");
+        g.each(function(data) {
+            x.domain(data.rangeX);
+            y.domain(data.rangeY);
 
-            var guideLine = g.append("rect")
-                .attr("width", width)
-                .attr("height", 1)
-                .attr("x", 0)
-                .attr("opacity", 0)
-                .style("pointer-events", "none");
+            d3.select(this)
+                .append("g")
+                .append("path")
+                .attr("class", "line")
+                .attr("d", function(d) {
+                    return line(d.values);
+                });
 
-            var guidePrice = g.append("text")
-                .attr("opacity", 0)
+            d3.select(this)
+                .append("g")
+                .attr("class", "axis axis--x")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x.domain(data.rangeX)).ticks(4));
+
+            d3.select(this)
+                .append("g")
+                .attr("class", "axis axis--y")
+                .call(d3.axisLeft(y.domain(data.rangeY)).ticks(4, "s"));
+
+            d3.select(this)
+                .append("text")
                 .attr("x", width / 2)
-                .attr("y", height)
-                .attr("dx", 10)
-                .attr("dy", -1)
-                .style("pointer-events", "none")
-                .style("text-anchor", "middle");
+                .attr("y", 0)
+                .attr("dy", -10)
+                .style("text-anchor", "middle")
+                .text(function(d) {
+                    return data.key
+                });
 
-            var guideMonth = g.append("text")
-                .attr("opacity", 0)
-                .attr("x", width / 2)
-                .attr("y", height)
-                .attr("dx", 10)
-                .attr("dy", -15)
-                .style("pointer-events", "none")
-                .style("text-anchor", "middle");
+
         });
-    </script>
-</body>
 
-</html>
+        var guideCircle = g.append("circle")
+            .attr("r", 4)
+            .attr("opacity", 0)
+            .style("pointer-events", "none");
+
+        var guideLine = g.append("rect")
+            .attr("width", width)
+            .attr("height", 1)
+            .attr("x", 0)
+            .attr("opacity", 0)
+            .style("pointer-events", "none");
+
+        var guidePrice = g.append("text")
+            .attr("opacity", 0)
+            .attr("x", width / 2)
+            .attr("y", height)
+            .attr("dx", 10)
+            .attr("dy", -1)
+            .style("pointer-events", "none")
+            .style("text-anchor", "middle");
+
+        var guideMonth = g.append("text")
+            .attr("opacity", 0)
+            .attr("x", width / 2)
+            .attr("y", height)
+            .attr("dx", 10)
+            .attr("dy", -15)
+            .style("pointer-events", "none")
+            .style("text-anchor", "middle");
+    });
+</script>

@@ -1,0 +1,117 @@
+.subunit {
+    fill: none;
+}
+
+body {
+    background-color: #f2f5f6;
+}
+
+circle {
+    fill: #03a9f4;
+    stroke: white;
+    stroke-width: 2px;
+}
+
+.active {
+    stroke: #000;
+}
+
+.q0-9 {
+    fill: rgb(247, 251, 255);
+}
+
+.q1-9 {
+    fill: rgb(222, 235, 247);
+}
+
+.q2-9 {
+    fill: rgb(198, 219, 239);
+}
+
+.q3-9 {
+    fill: rgb(158, 202, 225);
+}
+
+.q4-9 {
+    fill: rgb(107, 174, 214);
+}
+
+.q5-9 {
+    fill: rgb(66, 146, 198);
+}
+
+.q6-9 {
+    fill: rgb(33, 113, 181);
+}
+
+.q7-9 {
+    fill: rgb(8, 81, 156);
+}
+
+.q8-9 {
+    fill: rgb(8, 48, 107);
+}
+
+.subunit-boundary {
+    fill: none;
+    stroke: #777;
+    /*stroke-dasharray: 2, 2;*/
+    stroke-linejoin: round;
+}
+
+.subunit-label {
+    fill: black;
+    font-size: 20px;
+    font-weight: 300;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.subunit-label {
+    fill: black;
+    font-size: 20px;
+    font-weight: 300;
+    text-anchor: middle;
+    pointer-events: none;
+}
+
+.axis text {
+    font-size: 15px;
+}
+
+.axis .tick line {
+    display: none;
+}
+
+.axis path {
+    display: none;
+}
+
+.dragBar rect {
+    fill: #ff8700;
+    stroke: none;
+    stroke-width: 1px;
+}
+
+.legend rect {
+    stroke: black;
+    stroke-width: 0.5px;
+}
+
+.legend line {
+    display: none;
+}
+
+.legend path {
+    display: none;
+}
+
+.legend text {
+    font-size: 15px;
+}
+
+.playButton {
+    fill: white;
+    stroke: black;
+    stroke-width: 5px;
+}

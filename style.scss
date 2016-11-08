@@ -152,6 +152,9 @@ img {
 //
 .wrapper-masthead {
   margin-bottom: 50px;
+  @include mobile {
+    margin-bottom: 10px;
+  }
 }
 
 .masthead {
@@ -182,7 +185,7 @@ img {
 
 .site-info {
   float: left;
-
+  margin-left:40px;
   @include mobile {
     float: none;
     display: block;
@@ -196,14 +199,14 @@ img {
   cursor: pointer;
   font-family: "Gill Sans";
   font-weight: 400;
-  font-size: 28px;
+  font-size: 36px;
   letter-spacing: 1px;
 }
 
 .site-description {
   margin: -5px 0 0 0;
   color: $gray;
-  font-size: 16px;
+  font-size: 20px;
 
   @include mobile {
     margin: 3px 0;
@@ -262,7 +265,7 @@ nav {
   padding: 0px 40px 40px 40px;
   border-bottom: 1px solid $lightGray;
   @include mobile {
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
   }
 }
 

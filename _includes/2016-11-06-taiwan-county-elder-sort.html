@@ -1,448 +1,366 @@
-<html>
+<div id="button-container">
+    <div class="button year2012">根據2012年房價排序</div>
+    <div class="button year2016">根據2016年房價排序</div>
+    <div class="button Name">根據地理位置排序</div>
+</div>
+<div id="vis"></div>
 
-<head>
-    <meta charset="UTF-8">
-    <title>Untitled Document</title>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <style>
-        * {
-            font-family: PingFangTC-Regular, Microsoft JhengHei, sans-serif;
-        }
+<script>
+    (function() {
+        var parseTime = d3.timeParse("%Y-%m-%d");
+        var formatTime = d3.timeFormat("%Y-%m");
+        var bisect = d3.bisector(function(d) {
+            return d.交易年月;
+        }).left;
+        var currentYear;
+        var red = d3.scaleLinear()
+            .domain([1, 7])
+            .range(['#fee5d9', '#99000d']);
+        var blue = d3.scaleLinear()
+            .domain([1, 7])
+            .range(['#eff3ff', '#084594']);
 
-        .chart {
-            float: left;
-            padding-right: 5px;
-            padding-bottom: 5px;
-            padding-top: 0;
-            padding-left: 0;
-        }
+        d3.queue()
+            .defer(d3.csv, "/csv/house_median_price_full.csv", function(d) {
+                return {
+                    '縣市': d.county,
+                    '單價每坪': +d.median_price,
+                    '交易年月': parseTime(d.交易年月)
+                };
+            })
+            .defer(d3.csv, "/csv/house_median_price_year.csv")
+            .await(ready);
 
-        #vis {
-            max-width: 1080px;
-            overflow: auto;
-        }
 
-        .background {
-            fill: none;
-        }
+        function ready(error, priceMonth, priceYear) {
 
-        .beautify {
-            fill: #fff;
-        }
+            if (error) throw error;
 
-        svg {
-            font-size: 15px;
-        }
-
-        .line {
-            fill: none;
-            stroke: steelblue;
-            stroke-width: 1.5px;
-        }
-
-        circle {
-            fill: none;
-            stroke: black;
-            stroke-width: 1px;
-        }
-
-        .rank {
-            font-size: 20px;
-            fill: black;
-        }
-
-        .button {
-            cursor: pointer;
-            font-size: 24px;
-            display: inline;
-            text-align: center;
-            vertical-align: middle;
-            padding: 10px;
-            margin-left: 50px;
-            line-height: 50px;
-            height: 50px;
-            color: darkgrey;
-            background-color: lightgrey;
-        }
-
-        .active {
-            color: black;
-            background-color: darkgrey;
-        }
-
-        .multiple-title {
-            font-size: 20px;
-        }
-    </style>
-</head>
-
-<body>
-
-        <div id="button-container">
-            <div class="button year2012">根據2012年房價排序</div>
-            <div class="button year2016">根據2016年房價排序</div>
-            <div class="button Name">根據地理位置排序</div>
-        </div>
-        <svg width=915 height=1000 id="vis"></svg>
-
-    <script>
-        (function() {
-            var parseTime = d3.timeParse("%Y-%m-%d");
-            var formatTime = d3.timeFormat("%Y-%m");
-            var bisect = d3.bisector(function(d) {
-                return d.交易年月;
-            }).left;
-            var currentYear;
-            var red = d3.scaleLinear()
-                .domain([1, 7])
-                .range(['#fee5d9', '#99000d']);
-            var blue = d3.scaleLinear()
-                .domain([1, 7])
-                .range(['#eff3ff', '#084594']);
-
-            d3.queue()
-                .defer(d3.csv, "{{ site.url }}/csv/house_median_price_full.csv", function(d) {
-                    return {
-                        '縣市': d.county,
-                        '單價每坪': +d.median_price,
-                        '交易年月': parseTime(d.交易年月)
-                    };
+            var county = d3.nest().key(function(d) {
+                    return d.縣市;
                 })
-                .defer(d3.csv, "{{ site.url }}/csv/house_median_price_year.csv")
-                .await(ready);
+                .entries(priceMonth);
 
+            county.forEach(function(d) {
+                d.rangeX = d3.extent(d.values.map(function(d) {
+                    return d.交易年月;
+                }));
+                d.rangeY = [d3.min(d.values.map(function(d) {
+                    return d.單價每坪;
+                })) - 10000, d3.max(d.values.map(function(d) {
+                    return d.單價每坪;
+                }))];
+            });
 
-            function ready(error, priceMonth, priceYear) {
+            var svg = d3.select("#vis")
+            .append("svg")
+            .attr("width", 915)
+            .attr("height", 1000);
 
-                if (error) throw error;
+            var width = +svg.attr("width") / 4,
+                height = +svg.attr("height") / 6,
+                margin = {
+                    top: 50,
+                    right: 20,
+                    bottom: 30,
+                    left: 45
+                };
 
-                var county = d3.nest().key(function(d) {
-                        return d.縣市;
-                    })
-                    .entries(priceMonth);
+            var g = svg.selectAll(".chart")
+                .data(county)
+                .enter().append("g")
+                .attr("class", "chart");
 
-                county.forEach(function(d) {
-                    d.rangeX = d3.extent(d.values.map(function(d) {
-                        return d.交易年月;
-                    }));
-                    d.rangeY = [d3.min(d.values.map(function(d) {
-                        return d.單價每坪;
-                    })) - 10000, d3.max(d.values.map(function(d) {
-                        return d.單價每坪;
-                    }))];
-                });
+            g.attr("transform", function(d, i) {
+                return "translate(" + (margin.left + i % 4 * width) + "," + (margin.top + parseInt(i / 4) * height) + ")";
+            });
 
-                var svg = d3.select("svg");
-
-                var width = +svg.attr("width") / 4,
-                    height = +svg.attr("height") / 6,
-                    margin = {
-                        top: 50,
-                        right: 20,
-                        bottom: 30,
-                        left: 45
-                    };
-
-                var g = d3.select("#vis")
-                    .selectAll(".chart")
-                    .data(county)
-                    .enter().append("g")
-                    .attr("class", "chart");
-
-                g.attr("transform", function(d, i) {
-                    return "translate(" + (margin.left + i % 4 * width) + "," + (margin.top + parseInt(i / 4) * height) + ")";
-                });
-
-                g.append("rect")
-                    .attr("class", "beautify")
-                    .attr("pointer-events", "all")
-                    .attr("x", -margin.left + 5)
-                    .attr("y", -margin.bottom - 10)
-                    .attr("width", width - 10)
-                    .attr("height", height - 10)
-                    .on("click", function(d) {
-                        if (d3.select(this.parentNode)
-                            .select(".beautify")
-                            .node()
-                            .style.stroke == "none") {
-                            d3.select(this.parentNode)
-                                .select(".beautify")
-                                .style("stroke", "black")
-                                .style("stroke-width", 3);
-                        } else {
-                            d3.select(this.parentNode)
-                                .select(".beautify")
-                                .style("stroke", "none");
-                        }
-                    });
-
-                var x = d3.scaleTime()
-                    .rangeRound([0, width - margin.left - margin.right]);
-
-                var y = d3.scaleLinear()
-                    .rangeRound([height - margin.top - margin.bottom, 0])
-                    .clamp(true).nice();
-
-                var line = d3.line()
-                    .x(function(d) {
-                        return x(d.交易年月);
-                    })
-                    .y(function(d) {
-                        return y(d.單價每坪);
-                    });
-
-                g.each(function(data) {
-                    x.domain(data.rangeX);
-                    y.domain(data.rangeY);
-
-                    d3.select(this)
-                        .append("g")
-                        .append("path")
-                        .attr("class", "line")
-                        .attr("d", function(d) {
-                            return line(d.values);
-                        });
-
-                    d3.select(this)
-                        .append("g")
-                        .attr("class", "axis axis--x")
-                        .attr("transform", "translate(0," + (height - margin.top - margin.bottom) + ")")
-                        .call(d3.axisBottom(x.domain(data.rangeX)).ticks(4));
-
-                    d3.select(this)
-                        .append("g")
-                        .attr("class", "axis axis--y")
-                        .call(d3.axisLeft(y.domain(data.rangeY)).ticks(4, "s"));
-
-                    d3.select(this)
-                        .append("text")
-                        .attr("class", "multiple-title")
-                        .attr("x", width / 2 - margin.right - 15)
-                        .attr("y", 0)
-                        .attr("dy", -10)
-                        .style("text-anchor", "middle")
-                        .text(function(d) {
-                            return data.key
-                        });
-                });
-
-                var guideCircle = g.append("circle")
-                    .attr("r", 4)
-                    .attr("opacity", 0)
-                    .style("pointer-events", "none");
-
-                var guideLine = g.append("rect")
-                    .attr("width", width - margin.right - margin.left)
-                    .attr("height", 1)
-                    .attr("x", 0)
-                    .attr("opacity", 0)
-                    .style("pointer-events", "none");
-
-                var guidePrice = g.append("text")
-                    .attr("opacity", 0)
-                    .attr("x", width / 2 - margin.right - 15)
-                    .attr("y", height - margin.top - margin.bottom)
-                    .attr("dx", 10)
-                    .attr("dy", -1)
-                    .style("pointer-events", "none")
-                    .style("text-anchor", "middle");
-
-                var guideMonth = g.append("text")
-                    .attr("opacity", 0)
-                    .attr("x", width / 2 - margin.right - 15)
-                    .attr("y", height - margin.top - margin.bottom)
-                    .attr("dx", 10)
-                    .attr("dy", -15)
-                    .style("pointer-events", "none")
-                    .style("text-anchor", "middle");
-
-                var rectangle = g.append("rect")
-                    .attr("class", "background")
-                    .attr("pointer-events", "all")
-                    .attr("width", width - margin.left)
-                    .attr("height", height - margin.bottom - margin.top)
-                    .on("mouseover", mouseover)
-                    .on("mousemove", mousemove)
-                    .on("mouseout", mouseout)
-                    .on("click", mouseclick);
-
-                var rank = d3.select("#vis")
-                    .selectAll(".rank")
-                    .data(d3.range(1, 23))
-                    .enter().append("text")
-                    .attr("class", "rank")
-                    .attr("transform", function(d, i) {
-                        return "translate(" + (margin.left / 2 + i % 4 * width) + "," + (margin.top / 4 * 3 + parseInt(i / 4) * height) + ")";
-                    })
-                    .text(function(d) {
-                        return d
-                    });
-
-                function mouseover() {
-                    guideCircle.attr("opacity", 1);
-                    guidePrice.attr("opacity", 1);
-                    guideMonth.attr("opacity", 1);
-                    guideLine.attr("opacity", 1);
-                    mousemove.call(this);
-                }
-
-                function mouseout() {
-                    guideCircle.attr("opacity", 0);
-                    guidePrice.attr("opacity", 0);
-                    guideMonth.attr("opacity", 0);
-                    guideLine.attr("opacity", 0);
-                    mousemove.call(this);
-                }
-
-                function mousemove(d) {
-
-                    var date = x.domain(d.rangeX).clamp(true).invert(d3.mouse(this)[0]);
-
-                    var index = 0;
-
-                    guideCircle
-                        .attr("cx", function(d) {
-                            return x.domain(d.rangeX)(date);
-                        })
-                        .attr("cy", function(d) {
-                            index = bisect(d.values, date, 0, d.values.length - 1);
-                            return y.domain(d.rangeY)(d.values[index].單價每坪);
-                        });
-
-                    guideLine
-                        .attr("y", function(d) {
-                            index = bisect(d.values, date, 0, d.values.length - 1);
-                            return y.domain(d.rangeY)(d.values[index].單價每坪);
-                        });
-
-                    guidePrice
-                        .html(function(d) {
-                            index = bisect(d.values, date, 0, d.values.length - 1);
-                            return "每坪" + Math.round(d.values[index].單價每坪 / 1000) / 10 + "萬元";
-                        });
-
-                    guideMonth
-                        .text(function(d) {
-                            index = bisect(d.values, date, 0, d.values.length - 1);
-                            return formatTime(d.values[index].交易年月);
-                        });
-                }
-
-                function mouseclick(d) {
-                    if (d3.select(".background").node().__on.map(function(d) {
-                            return d.type;
-                        }).filter(function(d) {
-                            return d == "mousemove";
-                        }) == "mousemove") {
-                        rectangle.on("mousemove", null);
-                        rectangle.on("mouseout", null);
+            g.append("rect")
+                .attr("class", "beautify")
+                .attr("pointer-events", "all")
+                .attr("x", -margin.left + 5)
+                .attr("y", -margin.bottom - 10)
+                .attr("width", width - 10)
+                .attr("height", height - 10)
+                .on("click", function(d) {
+                    if (d3.select(this.parentNode)
+                        .select(".beautify")
+                        .node()
+                        .style.stroke == "none") {
                         d3.select(this.parentNode)
                             .select(".beautify")
                             .style("stroke", "black")
                             .style("stroke-width", 3);
                     } else {
-                        rectangle.on("mousemove", mousemove);
-                        rectangle.on("mouseout", mouseout);
                         d3.select(this.parentNode)
                             .select(".beautify")
                             .style("stroke", "none");
                     }
-                }
-
-                d3.select(".year2012").on("click", function() {
-                    d3.select(".active").classed("active", false)
-                    d3.select(this).classed("active", true);
-                    sorted("2012-06-30");
                 });
 
-                // d3.select("#button2014").on("click", function() {
-                //     sorted("2014-06-30");
-                // });
-                d3.select(".year2016").on("click", function() {
-                    d3.select(".active").classed("active", false)
-                    d3.select(this).classed("active", true);
-                    sorted("2016-06-30");
+            var x = d3.scaleTime()
+                .rangeRound([0, width - margin.left - margin.right]);
+
+            var y = d3.scaleLinear()
+                .rangeRound([height - margin.top - margin.bottom, 0])
+                .clamp(true).nice();
+
+            var line = d3.line()
+                .x(function(d) {
+                    return x(d.交易年月);
+                })
+                .y(function(d) {
+                    return y(d.單價每坪);
                 });
-                d3.select(".Name")
-                    .classed("active", true)
-                    .on("click", function() {
-                        d3.select(".active").classed("active", false)
-                        d3.select(this).classed("active", true);
-                        var t2 = d3.transition().duration(1000).ease(d3.easeCubicOut);
-                        g.transition(t2)
-                            .attr("transform", function(d, i) {
-                                return "translate(" + (margin.left + i % 4 * width) + "," + (margin.top + parseInt(i / 4) * height) + ")";
-                            });
-                        g.selectAll(".beautify").transition(t2)
-                            .style("fill", "#fff");
-                        currentYear = "";
+
+            g.each(function(data) {
+                x.domain(data.rangeX);
+                y.domain(data.rangeY);
+
+                d3.select(this)
+                    .append("g")
+                    .append("path")
+                    .attr("class", "line")
+                    .attr("d", function(d) {
+                        return line(d.values);
                     });
 
-                function sorted(year) {
-                    var priceNew = d3.map();
-                    var priceOld = d3.map();
+                d3.select(this)
+                    .append("g")
+                    .attr("class", "axis axis--x")
+                    .attr("transform", "translate(0," + (height - margin.top - margin.bottom) + ")")
+                    .call(d3.axisBottom(x.domain(data.rangeX)).ticks(4));
 
+                d3.select(this)
+                    .append("g")
+                    .attr("class", "axis axis--y")
+                    .call(d3.axisLeft(y.domain(data.rangeY)).ticks(4, "s"));
+
+                d3.select(this)
+                    .append("text")
+                    .attr("class", "multiple-title")
+                    .attr("x", width / 2 - margin.right - 15)
+                    .attr("y", 0)
+                    .attr("dy", -10)
+                    .style("text-anchor", "middle")
+                    .text(function(d) {
+                        return data.key
+                    });
+            });
+
+            var guideCircle = g.append("circle")
+                .attr("r", 4)
+                .attr("opacity", 0)
+                .style("pointer-events", "none");
+
+            var guideLine = g.append("rect")
+                .attr("width", width - margin.right - margin.left)
+                .attr("height", 1)
+                .attr("x", 0)
+                .attr("opacity", 0)
+                .style("pointer-events", "none");
+
+            var guidePrice = g.append("text")
+                .attr("opacity", 0)
+                .attr("x", width / 2 - margin.right - 15)
+                .attr("y", height - margin.top - margin.bottom)
+                .attr("dx", 10)
+                .attr("dy", -1)
+                .style("pointer-events", "none")
+                .style("text-anchor", "middle");
+
+            var guideMonth = g.append("text")
+                .attr("opacity", 0)
+                .attr("x", width / 2 - margin.right - 15)
+                .attr("y", height - margin.top - margin.bottom)
+                .attr("dx", 10)
+                .attr("dy", -15)
+                .style("pointer-events", "none")
+                .style("text-anchor", "middle");
+
+            var rectangle = g.append("rect")
+                .attr("class", "background")
+                .attr("pointer-events", "all")
+                .attr("width", width - margin.left)
+                .attr("height", height - margin.bottom - margin.top)
+                .on("mouseover", mouseover)
+                .on("mousemove", mousemove)
+                .on("mouseout", mouseout)
+                .on("click", mouseclick);
+
+            var rank = svg.selectAll(".rank")
+                .data(d3.range(1, 23))
+                .enter().append("text")
+                .attr("class", "rank")
+                .attr("transform", function(d, i) {
+                    return "translate(" + (margin.left / 2 + i % 4 * width) + "," + (margin.top / 4 * 3 + parseInt(i / 4) * height) + ")";
+                })
+                .text(function(d) {
+                    return d
+                });
+
+            function mouseover() {
+                guideCircle.attr("opacity", 1);
+                guidePrice.attr("opacity", 1);
+                guideMonth.attr("opacity", 1);
+                guideLine.attr("opacity", 1);
+                mousemove.call(this);
+            }
+
+            function mouseout() {
+                guideCircle.attr("opacity", 0);
+                guidePrice.attr("opacity", 0);
+                guideMonth.attr("opacity", 0);
+                guideLine.attr("opacity", 0);
+                mousemove.call(this);
+            }
+
+            function mousemove(d) {
+
+                var date = x.domain(d.rangeX).clamp(true).invert(d3.mouse(this)[0]);
+
+                var index = 0;
+
+                guideCircle
+                    .attr("cx", function(d) {
+                        return x.domain(d.rangeX)(date);
+                    })
+                    .attr("cy", function(d) {
+                        index = bisect(d.values, date, 0, d.values.length - 1);
+                        return y.domain(d.rangeY)(d.values[index].單價每坪);
+                    });
+
+                guideLine
+                    .attr("y", function(d) {
+                        index = bisect(d.values, date, 0, d.values.length - 1);
+                        return y.domain(d.rangeY)(d.values[index].單價每坪);
+                    });
+
+                guidePrice
+                    .html(function(d) {
+                        index = bisect(d.values, date, 0, d.values.length - 1);
+                        return "每坪" + Math.round(d.values[index].單價每坪 / 1000) / 10 + "萬元";
+                    });
+
+                guideMonth
+                    .text(function(d) {
+                        index = bisect(d.values, date, 0, d.values.length - 1);
+                        return formatTime(d.values[index].交易年月);
+                    });
+            }
+
+            function mouseclick(d) {
+                if (d3.select(".background").node().__on.map(function(d) {
+                        return d.type;
+                    }).filter(function(d) {
+                        return d == "mousemove";
+                    }) == "mousemove") {
+                    rectangle.on("mousemove", null);
+                    rectangle.on("mouseout", null);
+                    d3.select(this.parentNode)
+                        .select(".beautify")
+                        .style("stroke", "black")
+                        .style("stroke-width", 3);
+                } else {
+                    rectangle.on("mousemove", mousemove);
+                    rectangle.on("mouseout", mouseout);
+                    d3.select(this.parentNode)
+                        .select(".beautify")
+                        .style("stroke", "none");
+                }
+            }
+
+            d3.select(".year2012").on("click", function() {
+                d3.select(".active").classed("active", false)
+                d3.select(this).classed("active", true);
+                sorted("2012-06-30");
+            });
+
+            // d3.select("#button2014").on("click", function() {
+            //     sorted("2014-06-30");
+            // });
+            d3.select(".year2016").on("click", function() {
+                d3.select(".active").classed("active", false)
+                d3.select(this).classed("active", true);
+                sorted("2016-06-30");
+            });
+            d3.select(".Name")
+                .classed("active", true)
+                .on("click", function() {
+                    d3.select(".active").classed("active", false)
+                    d3.select(this).classed("active", true);
+                    var t2 = d3.transition().duration(1000).ease(d3.easeCubicOut);
+                    g.transition(t2)
+                        .attr("transform", function(d, i) {
+                            return "translate(" + (margin.left + i % 4 * width) + "," + (margin.top + parseInt(i / 4) * height) + ")";
+                        });
+                    g.selectAll(".beautify").transition(t2)
+                        .style("fill", "#fff");
+                    currentYear = "";
+                });
+
+            function sorted(year) {
+                var priceNew = d3.map();
+                var priceOld = d3.map();
+
+                priceYear.filter(function(d) {
+                        return d.交易年 == year;
+                    })
+                    .sort(function(a, b) {
+                        return b.median_price - a.median_price;
+                    })
+                    .forEach(function(d) {
+                        priceNew.set(d.county, +d.median_price);
+                    });
+
+                var foo = d3.local();
+
+                g.each(function(d) {
+                    d.priceNew = priceNew.get(d.key);
+                })
+
+                g.sort(function(a, b) {
+                    return b.priceNew - a.priceNew;
+                });
+
+                var t = d3.transition().duration(1000).ease(d3.easeCubicOut);
+
+                g.transition(t)
+                    .attr("transform", function(d, i) {
+                        return "translate(" + (margin.left + priceNew.values().indexOf(d.priceNew) % 4 * width) + "," + (margin.top + parseInt(priceNew.values().indexOf(d.priceNew) / 4) * height) + ")";
+                    });
+
+                if (currentYear) {
                     priceYear.filter(function(d) {
-                            return d.交易年 == year;
+                            return d.交易年 == currentYear;
                         })
                         .sort(function(a, b) {
                             return b.median_price - a.median_price;
                         })
                         .forEach(function(d) {
-                            priceNew.set(d.county, +d.median_price);
+                            priceOld.set(d.county, +d.median_price);
                         });
-
-                    var foo = d3.local();
 
                     g.each(function(d) {
-                        d.priceNew = priceNew.get(d.key);
+                        d.priceOld = priceOld.get(d.key);
+                        d.division = priceOld.values().indexOf(d.priceOld) - priceNew.values().indexOf(d.priceNew);
+                        if (d.division < 0) {
+                            d3.select(this).select(".beautify").transition(t)
+                                .style("fill", function(d) {
+                                    return blue(Math.abs(d.division));
+                                });
+                        } else if (d.division > 0) {
+                            d3.select(this).select(".beautify").transition(t)
+                                .style("fill", function(d) {
+                                    return red(Math.abs(d.division));
+                                });
+                        } else {
+                            return;
+                        }
                     })
-
-                    g.sort(function(a, b) {
-                        return b.priceNew - a.priceNew;
-                    });
-
-                    var t = d3.transition().duration(1000).ease(d3.easeCubicOut);
-
-                    g.transition(t)
-                        .attr("transform", function(d, i) {
-                            return "translate(" + (margin.left + priceNew.values().indexOf(d.priceNew) % 4 * width) + "," + (margin.top + parseInt(priceNew.values().indexOf(d.priceNew) / 4) * height) + ")";
-                        });
-
-                    if (currentYear) {
-                        priceYear.filter(function(d) {
-                                return d.交易年 == currentYear;
-                            })
-                            .sort(function(a, b) {
-                                return b.median_price - a.median_price;
-                            })
-                            .forEach(function(d) {
-                                priceOld.set(d.county, +d.median_price);
-                            });
-
-                        g.each(function(d) {
-                            d.priceOld = priceOld.get(d.key);
-                            d.division = priceOld.values().indexOf(d.priceOld) - priceNew.values().indexOf(d.priceNew);
-                            if (d.division < 0) {
-                                d3.select(this).select(".beautify").transition(t)
-                                    .style("fill", function(d) {
-                                        return blue(Math.abs(d.division));
-                                    });
-                            } else if (d.division > 0) {
-                                d3.select(this).select(".beautify").transition(t)
-                                    .style("fill", function(d) {
-                                        return red(Math.abs(d.division));
-                                    });
-                            } else {
-                                return;
-                            }
-                        })
-                    }
-                    currentYear = year;
                 }
+                currentYear = year;
             }
-        }).call(this);
-    </script>
-</body>
-
-</html>
+        }
+    }).call(this);
+</script>

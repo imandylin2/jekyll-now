@@ -1,9 +1,11 @@
 ---
 layout: post
 title: 互動圖表看台灣縣市房價變化
-author: Data Man
+author: Andy Lin
 date: 2016-10-27 17:00:00 +0800
 front-image: /images/taiwan-housing-front-image.png
+custom_css: 2016-10-27-taiwan-county-housing
+custom_js: d3.min
 ---
 
 最近幾個月曾經在電視上看到「房價走跌」、「至少還要跌X成」的新聞嗎？到底台灣房價是不是真的在跌，每個縣市的情況有沒有差別？我們用互動圖表帶你看台灣縣市房價近三年半來走勢，推敲房市投資客的動向。

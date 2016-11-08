@@ -1,0 +1,36 @@
+* {
+    background-color: #f2f5f6;
+}
+
+.chart {
+    float: left;
+    padding-right: 5px;
+    padding-bottom: 5px;
+    padding-top: 0;
+    padding-left: 0;
+}
+
+#vis {
+    max-width: 1080px;
+    overflow: auto;
+}
+
+.background {
+    fill: none;
+}
+
+svg {
+    font-size: 15px;
+}
+
+.line {
+    fill: none;
+    stroke: #03a9f4;
+    stroke-width: 1.5px;
+}
+
+circle {
+    fill: none;
+    stroke: black;
+    stroke-width: 1px;
+}
