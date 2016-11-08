@@ -11,8 +11,7 @@
 }
 
 #vis {
-    max-width: 1080px;
-    overflow: auto;
+    width: 100%;
 }
 
 .background {
