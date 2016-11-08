@@ -20,6 +20,7 @@ html {
 body {
   font: 18px/1.4 $helvetica;
   color: $darkGray;
+  background-color: #f2f5f6;
 }
 
 .container {
@@ -110,15 +111,6 @@ img {
   max-width: 100%;
 }
 
-img.work-img {
-  max-width: none;
-}
-
-div.work-div {
-  position: relative;
-
-}
-
 // Fixes images in popup boxes from Google Translate
 .gmnoprint img {
   max-width: none;
@@ -158,10 +150,6 @@ div.work-div {
 //
 // .masthead
 //
-body {
-  background-color: #f2f5f6;
-}
-
 .wrapper-masthead {
   margin-bottom: 50px;
 }
@@ -256,8 +244,18 @@ a:hover h2 {
 }
 
 .work-div {
+  width: 450px;
   float: left;
   margin: 20px 30px 20px 30px;
+  @include mobile {
+    width: 300px;
+    float: none;
+    display: block;
+  }
+  img {
+    width:100%;
+  }
+
 }
 //
 // .main
