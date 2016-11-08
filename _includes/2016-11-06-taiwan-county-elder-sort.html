@@ -1,8 +1,7 @@
-<div id="button-container">
-    <div class="button year2012">根據2012年房價排序</div>
-    <div class="button year2016">根據2016年房價排序</div>
-    <div class="button Name">根據地理位置排序</div>
-</div>
+<div class="button year2012">根據2012年房價排序</div>
+<div class="button year2016">根據2016年房價排序</div>
+<div class="button Name">根據地理位置排序</div>
+
 <div id="vis"></div>
 
 <script>
@@ -53,9 +52,9 @@
             });
 
             var svg = d3.select("#vis")
-            .append("svg")
-            .attr("width", 915)
-            .attr("height", 1000);
+                .append("svg")
+                .attr("width", 915)
+                .attr("height", 1000);
 
             var width = +svg.attr("width") / 4,
                 height = +svg.attr("height") / 6,

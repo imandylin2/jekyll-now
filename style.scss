@@ -26,7 +26,7 @@ body {
 .container {
   // float: left;
   margin: 0 auto;
-  max-width: 1080px;
+  max-width: 940px;
   padding: 0 10px;
   width: 100%;
 }
@@ -151,7 +151,7 @@ img {
 // .masthead
 //
 .wrapper-masthead {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
   @include mobile {
     margin-bottom: 10px;
   }
@@ -185,7 +185,6 @@ img {
 
 .site-info {
   float: left;
-  margin-left:40px;
   @include mobile {
     float: none;
     display: block;
@@ -215,7 +214,6 @@ img {
 
 nav {
   float: right;
-  margin-right: 80px;
   margin-top: 23px; // @TODO: Vertically middle align
   font-family: $helveticaNeue;
   font-size: 26px;
@@ -242,32 +240,12 @@ nav {
   }
 }
 
-.work-div {
-  width: 450px;
-  float: left;
-  margin: 20px 30px 20px 30px;
-  @include mobile {
-    width: 300px;
-    float: none;
-    display: block;
-    margin:0 auto;
-  }
-  img {
-    width:100%;
-  }
-
-  a > h2:hover {
-    color: $blue;
-  }
-
-}
-
 
 .posts > .post {
-  padding: 0px 40px 40px 40px;
+  padding: 0px 0px 40px;
   border-bottom: 1px solid $lightGray;
   @include mobile {
-    padding: 0px 20px 20px 20px;
+    padding: 0px 0px 20px;
   }
 }
 
@@ -309,6 +287,26 @@ footer {
 
 .work-container {
   overflow: auto;
+}
+
+.work-div {
+  width: 450px;
+  float: left;
+  margin: 20px 30px 20px 30px;
+  @include mobile {
+    width: 300px;
+    float: none;
+    display: block;
+    margin:0 auto;
+  }
+  img {
+    width:100%;
+  }
+
+  a > h2:hover {
+    color: $blue;
+  }
+
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS
