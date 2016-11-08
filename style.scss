@@ -23,7 +23,7 @@ body {
 }
 
 .container {
-  float: left;
+  // float: left;
   margin: 0 auto;
   max-width: 1080px;
   padding: 0 10px;
@@ -306,7 +306,7 @@ footer {
 }
 
 .work-container {
-  margin-right: 30px;
+  overflow: auto;
 }
 
 // Settled on moving the import of syntax highlighting to the bottom of the CSS

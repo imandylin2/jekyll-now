@@ -12,6 +12,10 @@ layout: default
         {{ post.author }} on {{ post.date | date: "%Y-%m-%d" }}
       </div>
 
+      <div class="front-image">
+        <image src={{ post.front-image }}/>
+      </div>
+
       <div class="entry">
         {{ post.excerpt }}
       </div>
