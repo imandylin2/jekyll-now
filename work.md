@@ -24,7 +24,7 @@ permalink: /work/
   <a href="https://theinitium.com/article/20161028-taiwan-Shezi/" target="view_window"><img class="work-img" src="/images/d53d2eb13ef34327b4ef224c566c5874.jpg"></a>
 </div>
   <div class="work-div">
-  <a href="https://imdataman.github.io/taiwan-county-elder-sort/" target="view_window"><h2>Sortable Taiwan counties' house price</h2></a>
+  <a href="https://imdataman.github.io/taiwan-county-elder-sort/" target="view_window"><h2>Sortable house price</h2></a>
   <h4>Use D3 to chart historical house price of Taiwan's 22 counties in the past 4 years</h4>
   <a href="https://imdataman.github.io/taiwan-county-elder-sort/" target="view_window"><img class="work-img" src="/images/ezgif.com-crop.gif"></a>
 </div>
