@@ -290,9 +290,9 @@ footer {
 }
 
 .work-div {
-  width: 450px;
+  width: 420px;
   float: left;
-  margin: 20px 30px 20px 30px;
+  margin: 20px;
   @include mobile {
     width: 300px;
     float: none;
