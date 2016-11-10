@@ -1,0 +1,68 @@
+.bar {
+    fill: #03a9f4;
+}
+
+.bar:hover {
+    fill: #ff8700;
+}
+
+.axis--x path {
+    display: none;
+}
+
+.axis--x line {
+    display: none;
+}
+
+.axis--x text {
+    font-size: 24px;
+}
+
+.axis--y text {
+    font-size: 18px;
+}
+
+.axis.axis--line text {
+    display: none;
+}
+
+.axis.axis--line path {
+    display: none;
+}
+
+.axis.axis--line line {
+    stroke-dasharray: 5;
+}
+
+#d3-container {
+    width: 1080px;
+    margin: 40px auto;
+}
+
+#button-container {
+    width: 600px;
+    margin: 0 auto 20px auto;
+}
+
+.button {
+    cursor: pointer;
+    font-size: 24px;
+    display: inline;
+    text-align: center;
+    vertical-align: middle;
+    padding: 10px;
+    margin: 0 20px;
+    line-height: 50px;
+    height: 50px;
+    color: black;
+    background-color: white;
+    border-style: solid;
+    border-width: 2px;
+    border-color: black;
+}
+
+.active {
+    color: white;
+    background-color: black;
+    border-color: grey;
+}
