@@ -21,7 +21,7 @@
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("rent591_tp_price.csv", function(d) {
+    d3.csv("/csv/rent591_tp_price.csv", function(d) {
         d.price = +d.mean_price;
         d.unit_price = +d.mean_unit_price;
         d.area = +d.mean_area;
