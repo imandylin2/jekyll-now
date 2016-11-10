@@ -10,7 +10,7 @@
             bottom: 30,
             left: 50
         },
-        width = parseInt(d3.select('#d3-container').node().clientWidth, 10) > 1080 ? 1080 : parseInt(d3.select('#d3-container').node().clientWidth, 10),
+        width = parseInt(d3.select('#d3-container').node().clientWidth, 10),
         width = width - margin.left - margin.right,
         svg = d3.select("svg").attr("width", (width + margin.left + margin.right) + 'px'),
         height = +svg.attr("height") - margin.top - margin.bottom;
@@ -159,32 +159,22 @@
 
         function resize() {
             // update width
-            width = parseInt(d3.select('#d3-container').node().clientWidth, 10) > 1080 ? 1080 : parseInt(d3.select('#d3-container').node().clientWidth, 10),
+            width = parseInt(d3.select('#d3-container').node().clientWidth, 10),
                 width = width - margin.left - margin.right;
 
             x.rangeRound([0, width]);
 
-            d3.select(g.node().parentNode)
-                .attr('height', (y.range()[0] + margin.top + margin.bottom) + 'px')
+            d3.select("svg")
                 .attr('width', (width + margin.left + margin.right) + 'px');
 
             g.select(".axis.axis--x")
-                .attr("transform", "translate(0," + height + ")")
                 .call(d3.axisBottom(x));
-
-            var item = d3.select(".active").datum();
 
             g.selectAll(".bar")
                 .attr("x", function(d) {
                     return x(d.town);
                 })
-                .attr("y", function(d) {
-                    return y(d[item]);
-                })
-                .attr("width", x.bandwidth())
-                .attr("height", function(d) {
-                    return height - y(d[item]);
-                });
+                .attr("width", x.bandwidth());
 
             g.selectAll(".axis.axis--line line")
                 .attr("x2", width);
