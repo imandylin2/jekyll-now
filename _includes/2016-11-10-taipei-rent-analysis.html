@@ -1,18 +1,18 @@
 <div id="d3-container">
     <div id="button-container"></div>
-    <svg width="960" height="500"></svg>
+    <svg height="500"></svg>
     <p>資料來源：591租屋網，租金及每坪租金單位為新台幣。</p>
 </div>
-<script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
-    var svg = d3.select("svg"),
-        margin = {
+    var margin = {
             top: 20,
             right: 20,
             bottom: 30,
             left: 50
         },
-        width = +svg.attr("width") - margin.left - margin.right,
+        width = parseInt(d3.select('#d3-container').node().clientWidth, 10) > 1080 ? 1080 : parseInt(d3.select('#d3-container').node().clientWidth, 10),
+        width = width - margin.left - margin.right,
+        svg = d3.select("svg").attr("width", (width + margin.left + margin.right) + 'px'),
         height = +svg.attr("height") - margin.top - margin.bottom;
 
     var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
@@ -21,7 +21,7 @@
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("/csv/rent591_tp_price.csv", function(d) {
+    d3.csv("rent591_tp_price.csv", function(d) {
         d.price = +d.mean_price;
         d.unit_price = +d.mean_unit_price;
         d.area = +d.mean_area;
@@ -70,14 +70,17 @@
             .attr("x2", width);
 
         g.append("line")
+            .attr("id", "base-line")
             .style("stroke", "black")
             .style("stroke-width", 2)
+            .attr("x1", -8)
             .attr("x2", width)
             .attr("y1", y(0))
             .attr("y2", y(0));
 
         d3.select("#button-container")
             .append("div")
+            .datum("price")
             .attr("class", "button price-button")
             .classed("active", true)
             .text("平均租金")
@@ -89,6 +92,7 @@
 
         d3.select("#button-container")
             .append("div")
+            .datum("unit_price")
             .attr("class", "button unit-price-button")
             .text("平均每坪租金")
             .on("click", function() {
@@ -99,6 +103,7 @@
 
         d3.select("#button-container")
             .append("div")
+            .datum("area")
             .attr("class", "button area-button")
             .text("平均租屋坪數")
             .on("click", function() {
@@ -150,5 +155,42 @@
                 });
         }
 
+        d3.select(window).on('resize', resize);
+
+        function resize() {
+            // update width
+            width = parseInt(d3.select('#d3-container').node().clientWidth, 10) > 1080 ? 1080 : parseInt(d3.select('#d3-container').node().clientWidth, 10),
+                width = width - margin.left - margin.right;
+
+            x.rangeRound([0, width]);
+
+            d3.select(g.node().parentNode)
+                .attr('height', (y.range()[0] + margin.top + margin.bottom) + 'px')
+                .attr('width', (width + margin.left + margin.right) + 'px');
+
+            g.select(".axis.axis--x")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
+
+            var item = d3.select(".active").datum();
+
+            g.selectAll(".bar")
+                .attr("x", function(d) {
+                    return x(d.town);
+                })
+                .attr("y", function(d) {
+                    return y(d[item]);
+                })
+                .attr("width", x.bandwidth())
+                .attr("height", function(d) {
+                    return height - y(d[item]);
+                });
+
+            g.selectAll(".axis.axis--line line")
+                .attr("x2", width);
+
+            g.select("#base-line")
+                .attr("x2", width);
+        }
     });
 </script>

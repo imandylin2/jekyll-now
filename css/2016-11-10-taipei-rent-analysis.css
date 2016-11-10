@@ -1,5 +1,7 @@
 .bar {
     fill: #03a9f4;
+    stroke-width: 1px;
+    stroke: black;
 }
 
 .bar:hover {
@@ -35,25 +37,21 @@
 }
 
 #d3-container {
-    width: 1080px;
-    margin: 40px auto;
+    max-width: 1080px;
+    margin: 20px auto;
 }
 
 #button-container {
-    width: 600px;
-    margin: 0 auto 20px auto;
+    width: 550px;
+    margin: 0 auto;
 }
 
 .button {
     cursor: pointer;
     font-size: 24px;
     display: inline;
-    text-align: center;
-    vertical-align: middle;
     padding: 10px;
     margin: 0 20px;
-    line-height: 50px;
-    height: 50px;
     color: black;
     background-color: white;
     border-style: solid;
@@ -65,4 +63,37 @@
     color: white;
     background-color: black;
     border-color: grey;
+}
+
+@media screen and (max-width: 640px) {
+    .axis--x text {
+        font-size: 16px;
+    }
+    .axis--y text {
+        font-size: 16px;
+    }
+    .button {
+        margin: 5px;
+        font-size: 20px;
+        padding: 5px;
+    }
+    #button-container {
+        width: 380px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .axis--x text {
+        font-size: 12px;
+    }
+    .axis--y text {
+        font-size: 12px;
+    }
+    .button {
+        font-size: 16px;
+        padding: 5px;
+    }
+    #button-container {
+        width: 320px;
+    }
 }
