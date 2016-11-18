@@ -14,7 +14,7 @@
     <div class="mockup third-paragraph">
         <p>如果放大來看的話，可以看到新加坡周邊海域的海盜活動特別密集。</p>
         <p>統計右邊地圖小紅框內的海盜事件後，做成下面的逐年累積圖。可以看到，新加坡海峽附近的海盜活動，在2015年攀抵高峰。</p>
-        <img width="300px" src="malacca.svg" />
+        <img width="300px" src="/images/malacca.svg" />
     </div>
     <div class="mockup fourth-paragraph">
         <p>亞丁灣周邊海域是另一個海盜活動猖獗的海域。亞丁灣是全球石油貿易的重要航線，波斯灣石油國的石油，主要通過亞丁灣運往北美及歐洲。</p>
@@ -25,13 +25,13 @@
         <p>由於航道狹窄，曼德海峽是海盜最愛下手的海域之一。不過，近年來歐美國家加強力道掃蕩東非海盜，使曼德海峽漸趨平靜。
         </p>
         <p>下面的長條圖是統計右邊紅色框框內海盜活動的結果。可以看到，曼德海峽海盜活動在2011年攀抵最後的高峰，之後逐漸消聲匿跡。2014年之後該海域都沒有發生海盜活動了。</p>
-        <img width="300px" src="mandeb.svg" />
+        <img width="300px" src="/images/mandeb.svg" />
     </div>
     <div class="mockup sixth-paragraph">
         <p>隨著西非大國尼日的石油產業發展，西非石油航線起點幾內亞灣近年來湧現海盜活動。</p>
         <p>我們統計了紅框的海盜活動，結果如下：海盜活動在2014和2015年有減緩趨向，但到了2016年，海盜活動件數激增，顯示幾內亞灣儼然成為全球海盜問題最嚴重的海域之一。
         </p>
-        <img width="300px" src="guinea.svg" />
+        <img width="300px" src="/images/guinea.svg" />
     </div>
     <div class="mockup seventh-paragraph">
         <p>根據IMB的資料，2010-2016年第3季，在台灣註冊的船隻被海盜攻擊的次數是7次（右圖紅點），其中3次海盜僅止於對船隻開火，4次船隻遭狹持。
@@ -84,8 +84,8 @@
         .style("opacity", 0);
 
     d3.queue()
-        .defer(d3.json, "test.json")
-        .defer(d3.csv, "pirate_final.csv")
+        .defer(d3.json, "/data/world_map.json")
+        .defer(d3.csv, "/csv/pirate_final.csv")
         .await(ready);
 
     function ready(error, world, pirate) {
