@@ -1,4 +1,4 @@
-<div id="container">
+<div id="vis-container">
     <svg width="960" height="611"></svg>
     <div class="mockup zero-paragraph">
         <p>地圖上的紅點，是國際海事局（IMB）紀錄的海盜事件，時間介於2010-2016年第3季。原本IMB報告裡共記載2,056起海盜事件，刪去沒有經緯度的條目後，地圖上共有1,876起海盜事件。
@@ -276,7 +276,7 @@
             .duration(1000)
             .style("opacity", 0);
 
-        d3.select("#container div:nth-child(" + (pageindex + 2) + ")")
+        d3.select("#vis-container div:nth-child(" + (pageindex + 2) + ")")
             .classed("active", true)
             .transition(t2)
             .style("opacity", 1);
