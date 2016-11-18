@@ -1,0 +1,90 @@
+* {
+    pointer-events: none;
+}
+
+.graticule {
+    fill: none;
+    stroke: #777;
+    stroke-opacity: 0.5;
+    stroke-width: 0.5px;
+}
+
+.sphere {
+    fill: #81d4fa;
+}
+
+.land {
+    fill: #f2f5f6;
+}
+
+.boundary {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 0.5px;
+}
+
+#zoom-rect {
+    fill: none;
+    pointer-events: all;
+}
+
+.circle-group circle {
+    stroke: none;
+    fill: red;
+    pointer-events: all;
+}
+
+#container {
+    position: relative;
+}
+
+.mockup {
+    font-size: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    width: 300px;
+    top: 100px;
+    left: 90px;
+    opacity: 0;
+}
+
+.button {
+    fill: #DF2935;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.progress-circle {
+    stroke-width: 3px;
+    pointer-events: all;
+    cursor: pointer;
+}
+
+.markup {
+    fill: none;
+    stroke: red;
+    stroke-width: 2px;
+}
+
+.markup-text {
+    text-anchor: middle;
+    font-size: 20px;
+}
+
+.taiwan {
+    stroke: white;
+    stroke-width: 0.5px;
+    fill: red;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 2px;
+    font: 20px sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    border: 0px;
+    border-radius: 4px;
+    pointer-events: none;
+}
