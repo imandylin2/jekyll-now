@@ -1,26 +1,26 @@
-#vis-container * {
-    pointer-events: none;
-}
-
 .graticule {
     fill: none;
     stroke: #777;
     stroke-opacity: 0.5;
     stroke-width: 0.5px;
+    pointer-events: none;
 }
 
 .sphere {
     fill: #81d4fa;
+    pointer-events: none;
 }
 
 .land {
     fill: #f2f5f6;
+    pointer-events: none;
 }
 
 .boundary {
     fill: none;
     stroke: #fff;
     stroke-width: 0.5px;
+    pointer-events: none;
 }
 
 #zoom-rect {
@@ -47,6 +47,7 @@
     top: 100px;
     left: 90px;
     opacity: 0;
+    pointer-events: none;
 }
 
 .button {
@@ -65,17 +66,20 @@
     fill: none;
     stroke: red;
     stroke-width: 2px;
+    pointer-events: none;
 }
 
 .markup-text {
     text-anchor: middle;
     font-size: 20px;
+    pointer-events: none;
 }
 
 .taiwan {
     stroke: white;
     stroke-width: 0.5px;
     fill: red;
+    pointer-events: none;
 }
 
 div.tooltip {
