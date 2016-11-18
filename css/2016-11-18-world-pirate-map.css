@@ -1,4 +1,4 @@
-* {
+#vis-container * {
     pointer-events: none;
 }
 
@@ -34,7 +34,7 @@
     pointer-events: all;
 }
 
-#container {
+#vis-container {
     position: relative;
 }
 
