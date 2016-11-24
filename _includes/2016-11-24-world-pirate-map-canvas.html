@@ -9,7 +9,7 @@
         containerWidth = parseInt(container.style("width")),
         containerHeight = parseInt(container.style("height")),
         width = containerWidth,
-        height = containerWidth == 960 ? 600 : 250,
+        height = width / 1.6;
         canvas = d3.select("canvas").attr("width", width).attr("height", height),
         svg = d3.select("svg").attr("width", width).attr("height", height),
         context = canvas.node().getContext("2d"),
