@@ -1,76 +1,76 @@
-<style>
-    #svg-item {
-        position: absolute;
-        height: 600px;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-    }
+#svg-item {
+    position: absolute;
+    height: 600px;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
 
-    canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-    }
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
 
-    #text-container {
-        position: absolute;
-        top: 90px;
-        left: 100px;
-        font-size: 20px;
-        padding: 10px;
-        background: rgba(255, 255, 255, 0.8);
-        width: 300px;
-        pointer-events: none;
-    }
+#text-container {
+    position: absolute;
+    top: 90px;
+    left: 100px;
+    font-size: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.8);
+    width: 300px;
+    pointer-events: none;
+}
 
-    #text-container img {
-        display: block;
-        margin: 10px auto;
-    }
+#text-container img {
+    display: block;
+    margin: 10px auto;
+}
 
-    .button {
-        pointer-events: all;
-        fill: #DF2935;
-        cursor: pointer;
-    }
+.button {
+    pointer-events: all;
+    fill: #DF2935;
+    cursor: pointer;
+}
 
-    .progress-circle {
-        fill: white;
-        stroke: grey;
-        pointer-events: all;
-        cursor: pointer;
-        stroke-width: 3px;
-    }
+.progress-circle {
+    fill: white;
+    stroke: grey;
+    pointer-events: all;
+    cursor: pointer;
+    stroke-width: 3px;
+}
 
-    #viz-container {
-        position: relative;
-        width: 960px;
-        height: 600px;
-    }
-    /*@media screen and (max-width: 640px) {
+#viz-container {
+    position: relative;
+    width: 960px;
+    height: 600px;
+}
+
+
+/*@media screen and (max-width: 640px) {
 
     }*/
 
-    @media screen and (max-width: 480px) {
-        #viz-container {
-            width: 450px;
-            height: 250px;
-        }
-        svg {
-            top: 0;
-            height: 100px;
-        }
-        canvas {
-            top: 100px;
-        }
-        #text-container {
-            position: absolute;
-            top: 350px;
-            left: 0;
-            font-size: 16px;
-            padding: 5px;
-            width: 450px;
-        }
+@media screen and (max-width: 480px) {
+    #viz-container {
+        width: 450px;
+        height: 250px;
     }
-</style>
+    svg {
+        top: 0;
+        height: 100px;
+    }
+    canvas {
+        top: 100px;
+    }
+    #text-container {
+        position: absolute;
+        top: 350px;
+        left: 0;
+        font-size: 16px;
+        padding: 5px;
+        width: 450px;
+    }
+}
