@@ -49,9 +49,11 @@ canvas {
 
 @media screen and (min-width: 481px) {
   svg {
+    width: 960px;
       height: 600px;
   }
   canvas {
+    width: 960px;
       height: 600px;
   }
     }
@@ -63,10 +65,12 @@ canvas {
     }
     svg {
         top: 0;
+        width: 450px;
         height: 100px;
     }
     canvas {
         top: 100px;
+        width: 450px;
         height: 250px;
     }
     #text-container {
