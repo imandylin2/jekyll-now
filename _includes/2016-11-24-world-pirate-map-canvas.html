@@ -6,10 +6,12 @@
 
 <script>
     var container = d3.select("#viz-container"),
-        width = parseInt(container.style("width")),
-        canvas = d3.select("canvas").attr("width", width),
-        height = 600,
-        svg = d3.select("svg").attr("width", width),
+        containerWidth = parseInt(container.style("width")),
+        containerHeight = parseInt(container.style("height")),
+        width = containerWidth == 960 ? 960 : 450,
+        height = containerHeight == 600 ? 600 : 250,
+        canvas = d3.select("canvas").attr("width", width).attr("height", height),
+        svg = d3.select("svg").attr("width", width).attr("height", height),
         context = canvas.node().getContext("2d"),
         radius = 2.5;
 
