@@ -48,7 +48,6 @@ canvas {
     height: 600px;
 }
 
-
 /*@media screen and (max-width: 640px) {
 
     }*/
@@ -56,7 +55,7 @@ canvas {
 @media screen and (max-width: 480px) {
     #viz-container {
         width: 450px;
-        height: 250px;
+        height: 600px;
     }
     svg {
         top: 0;
