@@ -9,6 +9,7 @@ custom_js:
   - d3.min
   - topojson.v1.min
   - d3-geo-projection.v1.min
+  - 2016-11-24-world-pirate-map-canvas
 ---
 
 Canvas + mobile friendly design
