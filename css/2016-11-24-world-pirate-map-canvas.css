@@ -1,6 +1,5 @@
 svg {
     position: absolute;
-    height: 600px;
     top: 0;
     left: 0;
     pointer-events: none;
@@ -8,7 +7,6 @@ svg {
 
 canvas {
     position: absolute;
-    height: 600px;
     top: 0;
     left: 0;
 }
@@ -49,9 +47,14 @@ canvas {
     height: 600px;
 }
 
-/*@media screen and (max-width: 640px) {
-
-    }*/
+@media screen and (max-width: 640px) {
+  svg {
+      height: 600px;
+  }
+  canvas {
+      height: 600px;
+  }
+    }
 
 @media screen and (max-width: 480px) {
     #viz-container {
