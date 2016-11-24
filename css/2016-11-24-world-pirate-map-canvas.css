@@ -44,7 +44,7 @@
     }
 
     #viz-container {
-        /*display: inline-block;*/
+        position: relative;
         width: 960px;
         height: 600px;
     }
