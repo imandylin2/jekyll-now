@@ -47,17 +47,6 @@ canvas {
     height: 600px;
 }
 
-@media screen and (min-width: 481px) {
-  svg {
-    width: 960px;
-      height: 600px;
-  }
-  canvas {
-    width: 960px;
-      height: 600px;
-  }
-    }
-
 @media screen and (max-width: 480px) {
     #viz-container {
         width: 450px;
@@ -65,13 +54,9 @@ canvas {
     }
     svg {
         top: 0;
-        width: 450px;
-        height: 100px;
     }
     canvas {
         top: 100px;
-        width: 450px;
-        height: 250px;
     }
     #text-container {
         position: absolute;
@@ -80,5 +65,26 @@ canvas {
         font-size: 16px;
         padding: 5px;
         width: 450px;
+    }
+}
+
+@media screen and (max-width: 416px) {
+    #viz-container {
+        width: 415px;
+        height: 600px;
+    }
+}
+
+@media screen and (max-width: 377px) {
+    #viz-container {
+        width: 376px;
+        height: 600px;
+    }
+}
+
+@media screen and (max-width: 321px) {
+    #viz-container {
+        width: 320px;
+        height: 700px;
     }
 }
