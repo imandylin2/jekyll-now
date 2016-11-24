@@ -109,8 +109,8 @@
     render();
 
     d3.queue()
-        .defer(d3.json, "test.json")
-        .defer(d3.csv, "pirate_final.csv")
+        .defer(d3.json, "/data/world_simplified.json")
+        .defer(d3.csv, "/csv/pirate_final.csv")
         .await(ready);
 
     function ready(error, world, pirate) {
