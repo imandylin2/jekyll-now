@@ -3,7 +3,7 @@ layout: post
 title: D3練習：世界海盜地圖（Canvas + Mobile friendly layout）
 author: Andy Lin
 date: '2016-11-24 17:00:00 +0800'
-front-image: /images/world-pirate-map-front-image.png
+front-image: /images/world-pirate-map-canvas-front-image.png
 custom_css: 2016-11-24-world-pirate-map-canvas
 custom_js:
   - d3.min
@@ -11,7 +11,7 @@ custom_js:
   - d3-geo-projection.v1.min
 ---
 
-
+Canvas + mobile friendly design
 
 <!-- more -->
 
