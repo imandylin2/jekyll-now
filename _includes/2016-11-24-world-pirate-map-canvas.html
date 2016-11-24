@@ -155,7 +155,10 @@
         context.restore();
     }
 
-    function draw(transform, fill = "red") {
+    function draw(transform, fill) {
+        if (fill === undefined) {
+            fill = "red";
+        }
         context.beginPath();
         path({
             type: "Sphere"
