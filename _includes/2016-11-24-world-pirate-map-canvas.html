@@ -41,7 +41,7 @@
         circle = d3.symbol().type(d3.symbolCircle).size(150);
 
     var zoom = d3.zoom()
-        .scaleExtent([0.5, 50])
+        .scaleExtent([0.32, 50])
         .on("zoom", zoomed);
 
     function render() {
@@ -220,11 +220,16 @@
                 .translate(width / 3 * 2, height / 2)
                 .scale(center[2])
                 .translate(-x(center[0], center[1]), -y(center[0], center[1]));
-        } else {
+        } else if (width < 480 && width > 360) {
             return d3.zoomIdentity
                 .translate(width / 2, height / 2)
                 .scale(center[2] / 2)
                 .translate(-x(center[4], center[1]), -y(center[4], center[1]));
+        } else {
+          return d3.zoomIdentity
+              .translate(width / 2, height / 2)
+              .scale(center[2] / 3)
+              .translate(-x(center[4], center[1]), -y(center[4], center[1]));
         }
     }
 
