@@ -8,7 +8,7 @@
     var container = d3.select("#viz-container"),
         width = parseInt(container.style("width")),
         canvas = d3.select("canvas").attr("width", width),
-        height = parseInt(canvas.style("height")),
+        height = 600,
         svg = d3.select("svg").attr("width", width),
         context = canvas.node().getContext("2d"),
         radius = 2.5;
