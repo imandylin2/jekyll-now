@@ -73,6 +73,10 @@ canvas {
         width: 415px;
         height: 600px;
     }
+
+    #text-container {
+      width: 415px;
+    }
 }
 
 @media screen and (max-width: 377px) {
@@ -80,11 +84,19 @@ canvas {
         width: 376px;
         height: 600px;
     }
+
+    #text-container {
+      width: 376px;
+    }
 }
 
 @media screen and (max-width: 321px) {
     #viz-container {
         width: 320px;
         height: 700px;
+    }
+
+    #text-container {
+      width: 320px;
     }
 }

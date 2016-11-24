@@ -73,8 +73,8 @@
             forwardButton.attr("transform", "translate(100,50) rotate(90)");
             backwardButton.attr("transform", "translate(50,50) rotate(270)");
         } else {
-            forwardButton.attr("transform", "translate(260,35) rotate(90)");
-            backwardButton.attr("transform", "translate(210,35) rotate(270)");
+            forwardButton.attr("transform", "translate(100,35) rotate(90)");
+            backwardButton.attr("transform", "translate(50,35) rotate(270)");
         }
 
         var progressCircle = svg.selectAll(".progress-circle")
@@ -94,7 +94,7 @@
             });
         } else {
             progressCircle.attr("transform", function(d) {
-                return "translate(" + (75 + d * 40) + ", 80)"
+                return "translate(" + (width / 9 / 2 + d * width / 9) + ", 80)"
             });
         }
 
