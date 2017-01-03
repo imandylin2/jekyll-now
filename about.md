@@ -10,7 +10,7 @@ Data Product Manager at Initium Media
 
 I share some data wrangling, visualization and data journalism thoughts.
 
-[Resume](https://www.cakeresume.com/f3c437)here!
+[Resume](https://www.cakeresume.com/f3c437) here!
 
 ### Contact me
 
