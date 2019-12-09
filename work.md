@@ -74,7 +74,7 @@ permalink: /work/
 
   <a href="https://theinitium.com/project/world-pirate-map-canvas/" target="view_window">
 
-  <img class="work-img" src="/images/pirate.png"></a>
+  <img class="work-img" src="/images/pirate.gif"></a>
 
   </div>
   <div class="work-div">
