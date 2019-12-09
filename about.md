@@ -4,13 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Data Product Manager at Initium Media
-
-### More Information
-
-I share some data wrangling, visualization and data journalism thoughts.
-
-[Resume](https://www.cakeresume.com/f3c437) here!
+I am a award winning journalist/developer based in Asia, with 5 years experience in data visualisation, cartography and 3 years experience in interactive web design and web mapping.
 
 ### Contact me
 

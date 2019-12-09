@@ -6,6 +6,78 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://imdataman.github.io/tw-election-map/' target="view_window">
+
+  <h2>2016 Taiwan election dot map</h2></a>
+
+  <h4>Built a dot map to show the result of 2016 Taiwan presidential election. QGIS for map tiles and Mapbox GL JS for tooltip/navigation.</h4>
+
+  <a href="https://imdataman.github.io/tw-election-map/" target="view_window">
+
+  <img class="work-img" src="/images/election_2016.png"></a>
+
+  </div>
+  <div class="work-div">
+  <a href='https://imdataman.github.io/mapbox-density-map/' target="view_window">
+
+  <h2>Taiwan population density map</h2></a>
+
+  <h4>Used Mapbox GL JS to build an interactive map showing population density in Taiwan in three levels of administrative division.</h4>
+
+  <a href="https://imdataman.github.io/mapbox-density-map/" target="view_window">
+
+  <img class="work-img" src="/images/mapbox_map.gif"></a>
+
+  </div>
+  <div class="work-div">
+  <a href='https://imdataman.github.io/tw-family-names/' target="view_window">
+
+  <h2>Taiwan family name map</h2></a>
+
+  <h4>Goverment data on geographical distribution of major family names in Taiwan was used to draw this interactive map. D3js and R were used.</h4>
+
+  <a href="https://imdataman.github.io/tw-family-names/" target="view_window">
+
+  <img class="work-img" src="/images/family_name.png"></a>
+
+  </div>
+  <div class="work-div">
+  <a href='https://imdataman.github.io/tw-family-names/' target="view_window">
+
+  <h2>2018 Taiwan election map</h2></a>
+
+  <h4>I built interactive maps to show the voting results of nearly 8,000 villages and boroughs in Taiwan. D3js, QGIS and R were used.</h4>
+
+  <a href="https://web.cw.com.tw/election2018/map/" target="view_window">
+
+  <img class="work-img" src="/images/election_2018.png"></a>
+
+  </div>
+  <div class="work-div">
+  <a href='https://imdataman.github.io/taipei-house-age-map/' target="view_window">
+
+  <h2>Taipei housing age map</h2></a>
+
+  <h4>I wrote a crawler to scrape construction permit data and geocoded the address. The interactive map was built with d3js and canvas.</h4>
+
+  <a href="https://imdataman.github.io/taipei-house-age-map/" target="view_window">
+
+  <img class="work-img" src="/images/housing_age.png"></a>
+
+  </div>
+  <div class="work-div">
+  <a href='https://theinitium.com/project/world-pirate-map-canvas/' target="view_window">
+
+  <h2>Pirate activitiy interactive map</h2></a>
+
+  <h4>Use d3js and canvas to build an interactive map. You can click on the arrows and dots to control the narrative.</h4>
+
+  <a href="https://theinitium.com/project/world-pirate-map-canvas/" target="view_window">
+
+  <img class="work-img" src="/images/pirate.png"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://www.thenewslens.com/article/32247' target="view_window">
 
   <h2>One's borough's metro station</h2></a>
