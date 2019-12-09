@@ -50,7 +50,7 @@ permalink: /work/
 
   <a href="https://web.cw.com.tw/election2018/map/" target="view_window">
 
-  <img class="work-img" src="/images/election_2018.png"></a>
+  <img class="work-img" src="/images/election_2018.gif"></a>
 
   </div>
   <div class="work-div">
