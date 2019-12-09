@@ -42,7 +42,7 @@ permalink: /work/
 
   </div>
   <div class="work-div">
-  <a href='https://imdataman.github.io/tw-family-names/' target="view_window">
+  <a href='https://web.cw.com.tw/election2018/map/' target="view_window">
 
   <h2>2018 Taiwan election map</h2></a>
 
