@@ -6,6 +6,30 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://imdataman.github.io/vue-mapbox-map/' target="view_window">
+
+  <h2>Taiwan Pop Characteristics 2019</h2></a>
+
+  <h4>A simple map application built with Vue and Mapbox GL JS providing details of demography in Taiwan.</h4>
+
+  <a href="https://imdataman.github.io/vue-mapbox-map/" target="view_window">
+
+  <img class="work-img" src="/images/vue-mapbox.gif"></a>
+
+  </div>
+  <div class="work-div">
+  <a href='https://imdataman.github.io/taipei-map-1957/' target="view_window">
+
+  <h2>A Lens to Taipei in 1957</h2></a>
+
+  <h4>Use QGIS-processed satellite image and historical aerial image to display changes of Taipei streets.</h4>
+
+  <a href="https://imdataman.github.io/taipei-map-1957/" target="view_window">
+
+  <img class="work-img" src="/images/taipei-1957.png"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://imdataman.github.io/tw-election-map/' target="view_window">
 
   <h2>2016 Taiwan election dot map</h2></a>
