@@ -6,6 +6,18 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://imdataman.github.io/taipei-house-age-map-v2/' target="view_window">
+
+  <h2>Housing Age Map of Taipei V2</h2></a>
+
+  <h4>An upgraded version of the Taipei housing age map using Vue.js and Turf.js.</h4>
+
+  <a href="https://imdataman.github.io/taipei-house-age-map-v2/" target="view_window">
+
+  <img class="work-img" src="/images/housing-age-v2.png"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://imdataman.github.io/vue-mapbox-map/' target="view_window">
 
   <h2>Taiwan Pop Characteristics 2019</h2></a>
