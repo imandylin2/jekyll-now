@@ -6,6 +6,18 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://imdataman.github.io/tw-legislator/' target="view_window">
+
+  <h2>Konw your legislators by the numbers</h2></a>
+
+  <h4>An interactive that lets you find out who are Taiwan's new legislators. Tools: Scrollama.js, D3.js.</h4>
+
+  <a href="https://imdataman.github.io/tw-legislator/" target="view_window">
+
+  <img class="work-img" src="/images/tw-legislator.gif"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://imdataman.github.io/taipei-house-age-map-v2/' target="view_window">
 
   <h2>Housing Age Map of Taipei V2</h2></a>
