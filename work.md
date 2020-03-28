@@ -6,9 +6,21 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://web.cw.com.tw/coronavirus-outbreak-live-updates/index.html' target="view_window">
+
+  <h2>Coronavirus global tracker</h2></a>
+
+  <h4>Maps and charts for latest numbers of coronavirus outbreak. Simple backend is implemented with Google Apps Script and Node. Tools: D3.js.</h4>
+
+  <a href="https://web.cw.com.tw/coronavirus-outbreak-live-updates/index.html" target="view_window">
+
+  <img class="work-img" src="/images/covid19.gif"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://imdataman.github.io/tw-legislator/' target="view_window">
 
-  <h2>Konw your legislators by the numbers</h2></a>
+  <h2>Know your legislators by the numbers</h2></a>
 
   <h4>An interactive that lets you find out who are Taiwan's new legislators. Tools: Scrollama.js, D3.js.</h4>
 
