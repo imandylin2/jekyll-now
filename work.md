@@ -6,6 +6,18 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://observablehq.com/@imdataman/coronavirus-cases-adjusted-choropleth' target="view_window">
+
+  <h2>COVID-19 adjusted map</h2></a>
+
+  <h4>Adjust state size according to how many cases are there in each state. transform-box and transform-origin are used to create the shrinking effect. First Observable notebook!</h4>
+
+  <a href="https://observablehq.com/@imdataman/coronavirus-cases-adjusted-choropleth" target="view_window">
+
+  <img class="work-img" src="/images/covid-shrink.gif"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://web.cw.com.tw/coronavirus-outbreak-live-updates/index.html' target="view_window">
 
   <h2>Coronavirus global tracker</h2></a>
