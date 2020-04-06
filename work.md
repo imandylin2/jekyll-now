@@ -6,6 +6,18 @@ permalink: /work/
 
 <div class="work-container">
   <div class="work-div">
+  <a href='https://coronavirus-taiwan-county.netlify.com/' target="view_window">
+
+  <h2>Weekly New Cases in Taiwan</h2></a>
+
+  <h4>A simple visualization showing weekly new cases in each county in Taiwan. Square map for geographical reference. Tools: Vue, D3.</h4>
+
+  <a href="https://coronavirus-taiwan-county.netlify.com/" target="view_window">
+
+  <img class="work-img" src="/images/tw-square-map.png"></a>
+
+  </div>
+  <div class="work-div">
   <a href='https://observablehq.com/@imdataman/coronavirus-cases-adjusted-choropleth' target="view_window">
 
   <h2>COVID-19 adjusted map</h2></a>
